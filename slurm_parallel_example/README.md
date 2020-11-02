@@ -17,13 +17,13 @@ The file "recombine-test.R" then takes all the outputs, combines them, saves the
 5. After running test-parallel as often as needed, run recombine-test once. 
 
 ## RUNTIME BASH CODE
-### to run 50 times
+### To run 50 times
 sbatch --array=1-50 slurm.sh test-parallel.R
 
-### put logs elsewhere (requires temp/ directory):
+### To put logs elsewhere (requires temp/ directory):
 sbatch -o "temp/slurm-%j.out" slurm.sh test-parallel.R
 
-### logs+array: (requires directory temp/log)
+### To put logs elsewhere and run 50 times: (requires directory temp/log)
 sbatch --array=1-50 -o "temp/log/slurm-%A_%a.out" slurm.sh test-parallel.R
 
 ### On completion of all prior code (or inside R/Rstudio etc):
@@ -34,13 +34,12 @@ sbatch -o "temp/log/slurm-%j.out" slurm.sh recombine-test.R
 ### Initial Files
 - counter.R: simple file with a function for a counter which (tries fairly successfully to prevent) overwriting outputs for different slurm jobs
 - README.md: this file.
-- recombine-test.R: 
-  - code taking outputs of all jobs (stored in temp folder), and summarizing/plotting it.
+- recombine-test.R: code taking outputs of all jobs (stored in temp folder), and summarizing/plotting it.
 - slurm.sh: Basic configuration details for the scheduler (number of cores, email on completion, account permissions, etc)
-- test-parallel.R:
-  - code running simulations looking at convergence to normal distribution
-- /temp/: empty directory for temporary files
-  - /temp/log/: empty directory for log files
+- test-parallel.R: code running simulations looking at convergence to normal distribution
+- /temp/: (mostly) empty directory for temporary files
+  - /temp/log/: (mostly) empty directory for log files
+      - /temp/log/folder_init: empty file opening two directories on github.
 
 ### Generated files
 - /temp/counter.RData: an RData file holding the value of the counter tracking save names.
